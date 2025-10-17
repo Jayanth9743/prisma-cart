@@ -4,7 +4,9 @@ const prisma = new PrismaClient();
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      include: { cart: true },
+    });
     res.json(users);
   } catch (error) {
     console.error("Error fetching users:", error);
@@ -32,7 +34,7 @@ export const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
         const user = await prisma.user.findUnique({
-            where: { id: parseInt(id) },
+            where: { id: id },
         });
         if (user) {
             res.json(user);

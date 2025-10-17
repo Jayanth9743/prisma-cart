@@ -5,6 +5,6 @@ import {getUsers, createUser,getUserById} from '../controllers/userController.js
 
 userRouter.get("/users", getUsers);
 userRouter.post("/users", createUser);
-userRouter.get("/users/:id", getUserById);
+userRouter.get("/user/:id", getUserById);
 
 export default userRouter;

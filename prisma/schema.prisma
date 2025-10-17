@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,4 +12,15 @@ model User {
   name      String
   email     String   @unique
   createdAt DateTime @default(now())
+  
+  // 👇 1-to-1 relation
+  cart      Cart?
+}
+
+model Cart {
+  id         String   @id @default(uuid())
+  products   String[] // 👈 Array of product IDs
+  userId     String   @unique // 👈 each user can have only one cart
+  user       User     @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
 }
