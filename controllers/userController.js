@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 export const getUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany({
-      include: { cart: true },
+      include: { cart: true, posts: true },
     });
     res.json(users);
   } catch (error) {

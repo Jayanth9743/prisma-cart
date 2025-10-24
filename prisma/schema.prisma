@@ -12,15 +12,25 @@ model User {
   name      String
   email     String   @unique
   createdAt DateTime @default(now())
-  
+
   // 👇 1-to-1 relation
-  cart      Cart?
+  cart  Cart?
+  posts Post[] // 👈 1-to-many relation
 }
 
 model Cart {
-  id         String   @id @default(uuid())
-  products   String[] // 👈 Array of product IDs
-  userId     String   @unique // 👈 each user can have only one cart
-  user       User     @relation(fields: [userId], references: [id])
-  createdAt  DateTime @default(now())
+  id        String   @id @default(uuid())
+  products  String[] // 👈 Array of product IDs
+  userId    String   @unique // 👈 each user can have only one cart
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
 }
