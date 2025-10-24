@@ -34,3 +34,20 @@ model Post {
   author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
 }
+
+
+//many to many relation example
+
+model Student {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  courses   Course[]
+}
+
+
+model Course {
+  id        String     @id @default(uuid())
+  title     String
+  students  Student[]
+}
